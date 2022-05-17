@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OneSteps.Utils.EncryptUtils
+namespace OneSteps.Utils
 {
-    internal class AesTool
+    public class Class1
     {
     }
 }

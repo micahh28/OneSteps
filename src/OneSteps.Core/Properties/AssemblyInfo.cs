@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("OneSteps")]
+[assembly: AssemblyTitle("OneSteps.Core")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("OneSteps")]
+[assembly: AssemblyProduct("OneSteps.Core")]
 [assembly: AssemblyCopyright("Copyright ©  2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("86ad79a8-ff41-493e-9c7e-498a04cb7148")]
+[assembly: Guid("024239fc-697a-4aec-a9c3-aa67df428c8f")]
 
 // 程序集的版本信息由下列四个值组成: 
 //

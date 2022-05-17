@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{86AD79A8-FF41-493E-9C7E-498A04CB7148}</ProjectGuid>
+    <ProjectGuid>{5A0536E4-27ED-4D91-9BE7-A17E6F382B0A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OneSteps</RootNamespace>
-    <AssemblyName>OneSteps</AssemblyName>
+    <RootNamespace>OneSteps.DatabaseAccessor</RootNamespace>
+    <AssemblyName>OneSteps.DatabaseAccessor</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -47,14 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DatabaseAccessor\Dapper\Internal\SqlProvider.cs" />
-    <Compile Include="DatabaseAccessor\Dapper\Repositories\DapperRepository.cs" />
-    <Compile Include="DatabaseAccessor\Dapper\Repositories\IDapperRepository.cs" />
+    <Compile Include="Dapper\Internal\SqlProvider.cs" />
+    <Compile Include="Dapper\Repositories\DapperRepository.cs" />
+    <Compile Include="Dapper\Repositories\IDapperRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\EncryptUtils\AesTool.cs" />
-    <Compile Include="Utils\EncryptUtils\DesTool.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
