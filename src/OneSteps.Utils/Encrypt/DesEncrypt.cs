@@ -3,9 +3,9 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace OneSteps.Utils.EncryptUtils
+namespace OneSteps.Utils.Encrypt
 {
-    public class DesTool
+    public class DesEncrypt
     {
         private static byte[] key = ASCIIEncoding.ASCII.GetBytes("OneSteps");
         private static byte[] iv = { 0x12, 0x34, 0x56, 0x78, 0x90, 0xAB, 0xCD, 0xEF };
