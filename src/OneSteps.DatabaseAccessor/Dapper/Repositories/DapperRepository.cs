@@ -20,6 +20,11 @@ namespace OneSteps.DatabaseAccessor.Dapper.Repositories
         /// </summary>
         private readonly IDbConnection _db;
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="connectionString"></param>
+        /// <param name="sqlProvider"></param>
         public DapperRepository(string connectionString, string sqlProvider)
         {
             // 获取数据库类型
@@ -54,21 +59,6 @@ namespace OneSteps.DatabaseAccessor.Dapper.Repositories
         public virtual dynamic DynamicContext { get; }
 
         /// <summary>
-        /// 查询返回动态类型
-        /// </summary>
-        /// <param name="sql"></param>
-        /// <param name="param"></param>
-        /// <param name="transaction"></param>
-        /// <param name="buffered"></param>
-        /// <param name="commandTimeout"></param>
-        /// <param name="commandType"></param>
-        /// <returns></returns>
-        public virtual IEnumerable<dynamic> Query(string sql, object param = null, IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null)
-        {
-            return Context.Query(sql, param, transaction, buffered, commandTimeout, commandType);
-        }
-
-        /// <summary>
         /// 查询返回特定类型
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -82,20 +72,6 @@ namespace OneSteps.DatabaseAccessor.Dapper.Repositories
         public virtual IEnumerable<T> Query<T>(string sql, object param = null, IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null)
         {
             return Context.Query<T>(sql, param, transaction, buffered, commandTimeout, commandType);
-        }
-
-        /// <summary>
-        /// 查询返回动态类型
-        /// </summary>
-        /// <param name="sql"></param>
-        /// <param name="param"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <param name="commandType"></param>
-        /// <returns></returns>
-        public virtual Task<IEnumerable<dynamic>> QueryAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
-        {
-            return Context.QueryAsync(sql, param, transaction, commandTimeout, commandType);
         }
 
         /// <summary>
@@ -141,14 +117,55 @@ namespace OneSteps.DatabaseAccessor.Dapper.Repositories
             return Context.ExecuteAsync(sql, param, transaction, commandTimeout, commandType);
         }
 
+        /// <summary>
+        /// 执行查询，并返回查询所返回的结果集中第一行的第一列。 忽略其他列或行。
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
+        public virtual object ExecuteScalar(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return Context.ExecuteScalar(sql, param, transaction, commandTimeout, commandType);
+        }
+
+        /// <summary>
+        /// 执行查询，并返回查询所返回的结果集中第一行。 忽略其他行。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
+        public virtual T QueryFirst<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return Context.QueryFirst<T>(sql, param, transaction, commandTimeout, commandType);
+        }
+
+        /// <summary>
+        /// 执行查询，并返回查询所返回的结果集中第一行。 忽略其他行。
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
+        public virtual T QueryFirstOrDefault<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return Context.QueryFirstOrDefault<T>(sql, param, transaction, commandTimeout, commandType);
+        }
     }
 
     /// <summary>
     /// Dapper 仓储实现类
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    public partial class DapperRepository<TEntity> : DapperRepository, IDapperRepository<TEntity>
-        where TEntity : class, new()
+    public partial class DapperRepository<TEntity> : DapperRepository, IDapperRepository<TEntity> where TEntity : class, new()
     {
         /// <summary>
         /// 构造函数
@@ -162,7 +179,6 @@ namespace OneSteps.DatabaseAccessor.Dapper.Repositories
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="serviceProvider"></param>
         /// <param name="db"></param>
         public DapperRepository(IDbConnection db) : base(db)
         {
@@ -358,6 +374,41 @@ namespace OneSteps.DatabaseAccessor.Dapper.Repositories
         public virtual Task<bool> DeleteAsync(IEnumerable<TEntity> entities, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             return Context.DeleteAsync(entities, transaction, commandTimeout);
+        }
+
+        /// <summary>
+        /// 执行查询，并返回查询所返回的结果集
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public virtual IEnumerable<TEntity> Query(string sql, object param = null)
+        {
+            return Context.Query<TEntity>(sql, param);
+        }
+
+        /// <summary>
+        /// 执行查询，并返回查询所返回的结果集中第一行。 忽略其他行。
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public virtual TEntity QueryFirstOrDefault(string sql, object param = null)
+        {
+            return Context.QueryFirstOrDefault<TEntity>(sql, param);
+        }
+
+        /// <summary>
+        /// 简单分页，返回分页后的泛型集合
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public virtual Tuple<IEnumerable<TEntity>, int> QueryPagination(string sql, object param = null)
+        {
+            var multi = Context.QueryMultiple(sql, param);
+            int totalCount = int.Parse(multi.Read<long>().Single().ToString());
+            return Tuple.Create(multi.Read<TEntity>(), totalCount);
         }
     }
 }
