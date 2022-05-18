@@ -23,18 +23,6 @@ namespace OneSteps.DatabaseAccessor.Dapper.Repositories
         dynamic DynamicContext { get; }
 
         /// <summary>
-        /// 查询返回动态类型
-        /// </summary>
-        /// <param name="sql"></param>
-        /// <param name="param"></param>
-        /// <param name="transaction"></param>
-        /// <param name="buffered"></param>
-        /// <param name="commandTimeout"></param>
-        /// <param name="commandType"></param>
-        /// <returns></returns>
-        IEnumerable<dynamic> Query(string sql, object param = null, IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null);
-
-        /// <summary>
         /// 查询返回特定类型
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -46,17 +34,6 @@ namespace OneSteps.DatabaseAccessor.Dapper.Repositories
         /// <param name="commandType"></param>
         /// <returns></returns>
         IEnumerable<T> Query<T>(string sql, object param = null, IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null);
-
-        /// <summary>
-        /// 查询返回动态类型
-        /// </summary>
-        /// <param name="sql"></param>
-        /// <param name="param"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <param name="commandType"></param>
-        /// <returns></returns>
-        Task<IEnumerable<dynamic>> QueryAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
 
         /// <summary>
         /// 查询返回特定类型
@@ -92,6 +69,40 @@ namespace OneSteps.DatabaseAccessor.Dapper.Repositories
         /// <returns></returns>
         Task<int> ExecuteAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
 
+        /// <summary>
+        /// 执行查询，并返回查询所返回的结果集中第一行的第一列。 忽略其他列或行。
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
+        object ExecuteScalar(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
+        T QueryFirst<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
+        T QueryFirstOrDefault<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
     }
 
     /// <summary>
@@ -244,5 +255,29 @@ namespace OneSteps.DatabaseAccessor.Dapper.Repositories
         /// <param name="commandTimeout"></param>
         /// <returns></returns>
         Task<bool> DeleteAsync(IEnumerable<TEntity> entities, IDbTransaction transaction = null, int? commandTimeout = null);
+
+        /// <summary>
+        /// 执行查询，并返回查询所返回的结果集。
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        IEnumerable<TEntity> Query(string sql, object param = null);
+
+        /// <summary>
+        /// 执行查询，并返回查询所返回的结果集中第一行。 忽略其他行。
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        TEntity QueryFirstOrDefault(string sql, object param = null);
+
+        /// <summary>
+        /// 简单分页，返回分页后的泛型集合
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        Tuple<IEnumerable<TEntity>, int> QueryPagination(string sql, object param = null);
     }
 }
