@@ -1,6 +1,6 @@
 module.exports = {
-    title: 'YGXJ-Core',
-    description: '核心库文档',
+    title: 'OneSteps',
+    description: '不积跬步无以至千里',
     head: [ // 注入到当前页面的 HTML <head> 中的标签
         ['link', {
             rel: 'icon',
@@ -38,15 +38,15 @@ module.exports = {
                 link: '/guide/introduction'
             },
             {
-                text: '可视化配置',
+                text: 'core',
                 link: '/guide/configer'
             },
             {
-                text: '云加密',
+                text: 'DatabaseAccessor',
                 link: '/guide/cloudencrypt'
             },
             {
-                text: 'C#工具',
+                text: 'Utils',
                 link: '/guide/utility'
             },
         ],
