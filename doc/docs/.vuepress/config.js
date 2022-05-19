@@ -27,7 +27,7 @@ module.exports = {
             cotent: '0'
         }]
     ],
-    base: '/', // 部署到github相关的配置
+    base: '/onesteps/', // 部署到github相关的配置
     markdown: {
         lineNumbers: true // 代码块是否显示行号
     },
