@@ -38,16 +38,16 @@ module.exports = {
                 link: '/guide/introduction'
             },
             {
+                text: 'Utils',
+                link: '/guide/utility'
+            },
+            {
                 text: 'core',
-                link: '/guide/configer'
+                link: '/guide/core'
             },
             {
                 text: 'DatabaseAccessor',
-                link: '/guide/cloudencrypt'
-            },
-            {
-                text: 'Utils',
-                link: '/guide/utility'
+                link: '/guide/databaseAccessor'
             },
         ],
         sidebar: 'auto', // 侧边栏配置
